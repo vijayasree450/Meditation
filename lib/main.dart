@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -61,7 +62,11 @@ class MeditationHome extends StatelessWidget {
 
             const Text(
               "Your Routines",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
             ),
 
             const SizedBox(height: 15),
