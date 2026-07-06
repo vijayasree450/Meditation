@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'notification_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.initialize();
   runApp(const MyApp());
 }
 
@@ -20,17 +22,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MeditationHome extends StatelessWidget {
-  MeditationHome({super.key});
+  const MeditationHome({super.key});
 
-  final List<Map<String, dynamic>> routines = [
+  final List<Map<String, dynamic>> routines = const [
     {"title": "Cleaning", "subtitle": "Daily refresh", "minutes": 20},
-
     {"title": "Meditation", "subtitle": "Deep breath awareness", "minutes": 40},
-
     {
       "title": "Universal Prayer",
       "subtitle": "Global connection",
-      "minutes": 10,
+      "minutes": 1,
     },
   ];
 
@@ -57,9 +57,7 @@ class MeditationHome extends StatelessWidget {
               "Good evening,\npeaceful mind",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 20),
-
             const Text(
               "Your Routines",
               style: TextStyle(
@@ -68,9 +66,7 @@ class MeditationHome extends StatelessWidget {
                 color: Colors.green,
               ),
             ),
-
             const SizedBox(height: 15),
-
             ...routines.map(
               (item) => RoutineCard(
                 title: item["title"],
@@ -162,8 +158,8 @@ class TimerPage extends StatefulWidget {
 
 class _TimerPageState extends State<TimerPage> {
   Timer? timer;
+  late DateTime endTime;
   late int secondsLeft;
-
   final AudioPlayer player = AudioPlayer();
 
   @override
@@ -171,43 +167,57 @@ class _TimerPageState extends State<TimerPage> {
     super.initState();
 
     secondsLeft = widget.minutes * 60;
+    endTime = DateTime.now().add(Duration(seconds: secondsLeft));
 
-    // player.setReleaseMode(ReleaseMode.loop);
-    // player.play(AssetSource('Dawn_of_the_Sovereign.mp3'));
+    NotificationService.scheduleAlarm(secondsLeft, widget.title);
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (secondsLeft > 0) {
+      final remaining = endTime.difference(DateTime.now()).inSeconds;
+
+      if (remaining > 0) {
         setState(() {
-          secondsLeft--;
+          secondsLeft = remaining;
         });
       } else {
+        setState(() {
+          secondsLeft = 0;
+        });
         timer.cancel();
-        player.setReleaseMode(ReleaseMode.stop);
-        player.play(AssetSource('Dawn_of_the_Sovereign.mp3'));
-
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text("Finished"),
-            content: const Text("Meditation Completed"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          ),
-        );
+        _triggerForegroundAlarm();
       }
     });
+  }
+
+  void _triggerForegroundAlarm() {
+    player.setReleaseMode(ReleaseMode.stop);
+    player.play(AssetSource('Dawn_of_the_Sovereign.mp3'));
+
+    if (mounted) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => AlertDialog(
+          title: const Text("Finished"),
+          content: const Text("Meditation Completed"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                player.stop();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
   void dispose() {
     timer?.cancel();
+    NotificationService.cancelAlarm();
     player.stop();
     player.dispose();
     super.dispose();
