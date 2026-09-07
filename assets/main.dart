@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MeditationHome extends StatelessWidget {
-  MeditationHome({super.key});
+  const MeditationHome({super.key});
 
   final routines = const [
     {"title":"Cleaning","subtitle":"Daily refresh","minutes":20},
