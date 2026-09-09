@@ -166,35 +166,41 @@ class _TimerPageState extends State<TimerPage> {
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEFF6FF),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFFBFDBFE)),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.alarm_on_rounded, size: 18, color: Color(0xFF1E3A8A)),
-                    SizedBox(width: 6),
-                    Text(
-                      "സ്‌ക്രീൻ ഓഫ് ആയാലും അലാറം അടിക്കും",
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF1E3A8A),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(
+              //     horizontal: 14,
+              //     vertical: 8,
+              //   ),
+              //   decoration: BoxDecoration(
+              //     color: const Color(0xFFEFF6FF),
+              //     borderRadius: BorderRadius.circular(20),
+              //     border: Border.all(color: const Color(0xFFBFDBFE)),
+              //   ),
+              //   // child: const Row(
+              //   // mainAxisSize: MainAxisSize.min,
+              //   // children: [
+              //   //   Icon(Icons.alarm_on_rounded, size: 18, color: Color(0xFF1E3A8A)),
+              //   //   SizedBox(width: 6),
+              //   //   Text(
+              //   //     "സ്‌ക്രീൻ ഓഫ് ആയാലും അലാറം അടിക്കും",
+              //   //     style: TextStyle(
+              //   //       fontSize: 13,
+              //   //       fontWeight: FontWeight.w600,
+              //   //       color: Color(0xFF1E3A8A),
+              //   //     ),
+              //   //   ),
+              //   // ],
+              //   // ),
+              // ),
               const SizedBox(height: 36),
               OutlinedButton.icon(
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.red.shade700,
                   side: BorderSide(color: Colors.red.shade300),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

@@ -21,9 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mindful Presence',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1E3A8A),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E3A8A)),
         useMaterial3: true,
       ),
       home: const MeditationHome(),
@@ -38,7 +36,7 @@ class MeditationHome extends StatelessWidget {
     {
       "title": "Cleaning Practice - Prayer",
       "subtitle": "Daily evening refresh • ക്ലീനിംഗ് പ്രാർത്ഥന",
-      "minutes": 20,
+      "minutes": 5,
       "pageType": "cleaning",
       "prayerLabel": "ക്ലീനിംഗ് പ്രാർത്ഥന & നിർദ്ദേശങ്ങൾ",
     },
@@ -132,23 +130,17 @@ class RoutineCard extends StatelessWidget {
     if (pageType == "cleaning") {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => const CleaningPrayerPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const CleaningPrayerPage()),
       );
     } else if (pageType == "meditation") {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => const MeditationPrayerPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const MeditationPrayerPage()),
       );
     } else if (pageType == "universal") {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => const UniversalPrayerPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const UniversalPrayerPage()),
       );
     } else {
       Navigator.push(
@@ -173,9 +165,7 @@ class RoutineCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 14),
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       color: Colors.white,
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -211,7 +201,9 @@ class RoutineCard extends StatelessWidget {
                         Text(
                           pageType == "cleaning"
                               ? "20-30 m"
-                              : (pageType == "meditation" ? "30-40 m" : "$minutes m"),
+                              : (pageType == "meditation"
+                                    ? "30-40 m"
+                                    : "$minutes m"),
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -231,7 +223,8 @@ class RoutineCard extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => TimerPage(minutes: minutes, title: title),
+                          builder: (_) =>
+                              TimerPage(minutes: minutes, title: title),
                         ),
                       );
                     },
@@ -255,7 +248,10 @@ class RoutineCard extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: primaryThemeColor.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(12),
@@ -292,4 +288,3 @@ class RoutineCard extends StatelessWidget {
     );
   }
 }
-

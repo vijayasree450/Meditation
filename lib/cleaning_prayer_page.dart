@@ -272,7 +272,7 @@ class CleaningPrayerPage extends StatelessWidget {
                           ),
                           icon: const Icon(Icons.play_arrow_rounded, size: 22),
                           label: const Text(
-                            "20 Minutes",
+                            "5 Minutes",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -283,8 +283,8 @@ class CleaningPrayerPage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (_) => const TimerPage(
-                                  minutes: 20,
-                                  title: "Cleaning Practice (20m)",
+                                  minutes: 5,
+                                  title: "Cleaning Practice (5m)",
                                 ),
                               ),
                             );
